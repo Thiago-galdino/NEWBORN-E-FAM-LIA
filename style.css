@@ -2,17 +2,18 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --cream:    #fdf8f3;
-  --beige:    #f0e8dc;
-  --nude:     #e8d5c4;
-  --rose:     #c9a99a;
-  --gold:     #c9a96e;
-  --gold-lt:  #e8d5a3;
-  --brown:    #7a5c4a;
-  --dark:     #2a1f1a;
-  --white:    #ffffff;
-  --text:     #4a3728;
-  --text-lt:  #8a7060;
+  --cream:      #fdf8f3;
+  --beige:      #f0e8dc;
+  --nude:       #e8d5c4;
+  --rose:       #c9a99a;
+  --gold:       #c9a96e;
+  --gold-lt:    #e8d5a3;
+  --gold-dark:  #7a5a1a; /* dourado mais escuro — passa WCAG AA em fundos claros */
+  --brown:      #7a5c4a;
+  --dark:       #2a1f1a;
+  --white:      #ffffff;
+  --text:       #4a3728;
+  --text-lt:    #6a5244; /* escurecido de #8a7060 para passar WCAG AA */
 
   --ff-serif: 'Cormorant Garamond', Georgia, serif;
   --ff-sans:  'Jost', system-ui, sans-serif;
@@ -49,7 +50,7 @@ a { text-decoration: none; color: inherit; }
   font-weight: 400;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: 1rem;
 }
 .section-tag.light { color: var(--gold-lt); }
@@ -80,7 +81,7 @@ a { text-decoration: none; color: inherit; }
 .btn-hero {
   display: inline-block;
   padding: .9rem 2.4rem;
-  background: var(--gold);
+  background: var(--brown);
   color: var(--white);
   font-family: var(--ff-sans);
   font-size: .85rem;
@@ -89,19 +90,19 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase;
   border-radius: 100px;
   transition: background .3s, transform .3s, box-shadow .3s;
-  box-shadow: 0 8px 32px rgba(201,169,110,.35);
+  box-shadow: 0 8px 32px rgba(122,92,74,.35);
 }
 .btn-hero:hover {
-  background: var(--brown);
+  background: var(--dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(201,169,110,.45);
+  box-shadow: 0 12px 40px rgba(122,92,74,.45);
 }
 
 .btn-ghost {
   display: inline-block;
   padding: .75rem 2rem;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--gold-dark);
+  color: var(--gold-dark);
   font-size: .8rem;
   font-weight: 400;
   letter-spacing: .12em;
@@ -110,14 +111,15 @@ a { text-decoration: none; color: inherit; }
   transition: all .3s;
 }
 .btn-ghost:hover {
-  background: var(--gold);
+  background: var(--gold-dark);
   color: var(--white);
+  border-color: var(--gold-dark);
 }
 
 .btn-nav {
   display: none;
   padding: .6rem 1.4rem;
-  background: var(--gold);
+  background: var(--brown);
   color: var(--white);
   font-size: .75rem;
   letter-spacing: .1em;
@@ -125,7 +127,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: 100px;
   transition: background .3s;
 }
-.btn-nav:hover { background: var(--brown); }
+.btn-nav:hover { background: var(--dark); }
 @media (min-width: 900px) { .btn-nav { display: inline-block; } }
 
 /* ── NAVBAR ───────────────────────────────────────────── */
@@ -166,7 +168,23 @@ a { text-decoration: none; color: inherit; }
   font-size: .62rem;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
+}
+
+/* Navbar sobre hero escuro: logo sempre branco (não entra no menu mobile) */
+.navbar:not(.scrolled) .logo-name { color: var(--white); }
+.navbar:not(.scrolled) .logo-sub  { color: var(--gold-lt); }
+
+/* Links brancos só no desktop, onde ficam inline sobre o hero */
+@media (min-width: 900px) {
+  .navbar:not(.scrolled) .nav-links a { color: rgba(255,255,255,.88); }
+}
+
+/* Hamburger branco sobre hero; vira escuro quando o menu (fundo creme) está aberto */
+@media (max-width: 899px) {
+  .navbar:not(.scrolled) .hamburger span { background: var(--white); }
+  /* mesma especificidade (0,3,1) mas vem depois na cascata → ganha sempre que aberto */
+  .navbar .hamburger.open span           { background: var(--dark); }
 }
 
 .nav-links {
@@ -345,7 +363,7 @@ a { text-decoration: none; color: inherit; }
   font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.5);
+  color: rgba(255,255,255,.78);
 }
 
 /* ── SOBRE ────────────────────────────────────────────── */
@@ -460,7 +478,7 @@ a { text-decoration: none; color: inherit; }
   font-size: .68rem;
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: .5rem;
   display: block;
 }
@@ -584,7 +602,7 @@ a { text-decoration: none; color: inherit; }
 }
 .depo-card.destaque .depo-author strong { color: var(--white); }
 .depo-author span { font-size: .75rem; color: var(--text-lt); }
-.depo-card.destaque .depo-author span { color: rgba(255,255,255,.5); }
+.depo-card.destaque .depo-author span { color: rgba(255,255,255,.72); }
 
 /* ── DIFERENCIAIS ─────────────────────────────────────── */
 .diferenciais {
@@ -605,7 +623,6 @@ a { text-decoration: none; color: inherit; }
   padding: 2.2rem;
   border: 1px solid rgba(201,169,110,.15);
   transition: border-color .3s, box-shadow .3s;
-  backdrop-filter: blur(4px);
 }
 .dif-item:hover {
   border-color: rgba(201,169,110,.4);
@@ -779,7 +796,7 @@ a { text-decoration: none; color: inherit; }
 }
 .faq-q:hover { color: var(--gold); }
 .faq-q span {
-  color: var(--gold);
+  color: var(--gold-dark);
   font-size: 1.5rem;
   font-weight: 300;
   flex-shrink: 0;
@@ -857,7 +874,7 @@ a { text-decoration: none; color: inherit; }
   display: inline-block;
   margin-top: .4rem;
   padding: .6rem 1.4rem;
-  background: var(--gold);
+  background: var(--brown);
   color: var(--white);
   font-size: .75rem;
   letter-spacing: .1em;
@@ -865,14 +882,14 @@ a { text-decoration: none; color: inherit; }
   border-radius: 100px;
   transition: background .3s;
 }
-.btn-footer:hover { background: var(--brown); }
+.btn-footer:hover { background: var(--cream); color: var(--dark); }
 
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.08);
   padding-top: 1.5rem;
   text-align: center;
   font-size: .78rem;
-  color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.6);
 }
 
 /* ── WHATSAPP FLUTUANTE ───────────────────────────────── */
@@ -945,3 +962,39 @@ a { text-decoration: none; color: inherit; }
 
 /* ── SELECTION ────────────────────────────────────────── */
 ::selection { background: var(--gold-lt); color: var(--dark); }
+
+/* ── MOBILE PERFORMANCE ────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Imagens de fundo menores no mobile */
+  .hero-parallax {
+    background-image: url('https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&q=75');
+    inset: 0;        /* Remove expansão -10% usada só pelo parallax */
+    will-change: auto;
+  }
+  .emocional {
+    background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191011?w=800&q=75');
+  }
+  /* Remove backdrop-filter custoso no mobile */
+  .navbar.scrolled {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(253,248,243,.97);
+  }
+  .hero-badge {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255,255,255,.12);
+  }
+  .sobre-badge-float {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(253,248,243,.98);
+  }
+}
+
+/* ── MOTION REDUZIDO ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .wa-float { animation: none; }
+  .hero-scroll-hint span { animation: none; opacity: .65; transform: scaleY(1); }
+}

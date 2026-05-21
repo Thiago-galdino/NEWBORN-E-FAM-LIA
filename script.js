@@ -25,8 +25,14 @@ navLinks.querySelectorAll('a').forEach(link => {
 /* ── HERO PARALLAX ────────────────────────────────────── */
 const heroBg = document.getElementById('heroBg');
 let ticking  = false;
+let parallaxEnabled = window.innerWidth >= 768;
+
+window.addEventListener('resize', () => {
+  parallaxEnabled = window.innerWidth >= 768;
+}, { passive: true });
 
 window.addEventListener('scroll', () => {
+  if (!parallaxEnabled) return;
   if (!ticking) {
     requestAnimationFrame(() => {
       const scrollY = window.scrollY;
